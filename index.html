@@ -9,13 +9,13 @@
 </head>
 
 <body>
+    <div class=scroll-top-wrapper>
+        <span class=scroll-top-inner>
+            <i class="fa fa-2x fa-arrow-circle-up"></i>
+        </span>
+    </div>
     <div class='wrapper'>
         <div class='smooth'>
-            <div class=scroll-top-wrapper>
-                <span class=scroll-top-inner>
-<i class="fa fa-2x fa-arrow-circle-up"></i>
-</span>
-            </div>
             <div id=contenedor>
                 <div id=navigation>
                     <img alt="Logo of the site" src=assets/img/logojorgalganet.jpg height="60" width="180" />
@@ -231,7 +231,7 @@
             offset = element.offset();
             offsetTop = offset.top;
             $("html, body").animate({
-                scrollTop: offsetTop
+                scrollTop: offsetTopgi
             }, 500, "linear")
         }
 
