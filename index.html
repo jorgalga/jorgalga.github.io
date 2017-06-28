@@ -226,7 +226,7 @@
 
             $(".scroll-top-wrapper").click(function() {
                 $(".smooth").clearQueue().css({
-                    transform: 'translate3d(0px, -' + $('@contenedor').offset().top + 'px, 0px)'
+                    transform: 'translate3d(0px, -' + $('#contenedor').offset().top + 'px, 0px)'
                 });
                 $(window).scrollTop($('#contenedor').offset().top);
                 return false;
