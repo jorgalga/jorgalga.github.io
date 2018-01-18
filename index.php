@@ -62,7 +62,7 @@
                     <p><strong>Portfolio</strong></p>
                 </div>
                 <div class=post>
-                    <ul><li><b>2018: </b><a href="https://www.cruzcampo.es/" target="_blank">Cruzcampo beer new site (Heineken International)</a> Front End development [WebApp site][Ogilvy & Mather]</li>
+                    <ul>
                         <li><b>2017: </b><a href="https://www.santanderfutbolpasion.com/" target="_blank">Santander Futbol Pasión</a> Front End development [WebApp site][Ogilvy & Mather]</li>
                         <li><b>2017: </b><a href="http://brf.co" target="_blank">B-reel films site</a> Maintenance and update development [Wordpress site][B-reel]</li>
                         <li><b>2017: </b><a href="https://youtu.be/_Jor3TRXniw" target="_blank">Google My Account</a> Main developer [Interactive wall][B-reel]</li>
