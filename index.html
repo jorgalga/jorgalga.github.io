@@ -1,7 +1,52 @@
-<!DOCTYPE html><html lang=es><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Jorgalga Works site</title><meta property=og:url content=https://jorgalga.github.io/ ><meta property=og:type content=website><meta property=og:title content="Jorgalga Works site"><meta property=og:description content="Hypermedia artist."><meta property=og:image content=https://jorgalga.github.io//static/share.jpg><link href=/static/css/app.dadd6f9ab86a29f50d7f4ad55fdea77f.css rel=stylesheet></head><body><div id=fb-root></div><script>(function(d, s, id) {
+<!DOCTYPE html><html lang=es><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Jorgalga Works site</title><meta property=og:url content=https://jorgalga.github.io/ ><meta property=og:type content=website><meta property=og:title content="Jorgalga Works site"><meta property=og:description content="Hypermedia artist."><meta property=og:image content=https://jorgalga.github.io//static/share.jpg><script type=x-shader/x-vertex id=particle-vs>precision highp float;
+      attribute vec3 position;
+      attribute vec2 source;
+      attribute vec2 target;
+      uniform mat4 modelViewMatrix;
+      uniform mat4 projectionMatrix;
+      uniform float size;
+      uniform float blend;
+      uniform sampler2D sourceTex;
+      uniform sampler2D targetTex;
+      uniform vec2 dimensions;
+      varying vec3 vColor;
+      float parabola( float x, float k ) {
+        return pow( 4. * x * ( 1. - x ), k );
+      }
+      const float PI = 3.14159265359;
+      void main() {
+        float pBlend = 0.;
+        float threshold = ( position.y * dimensions.x + position.x ) * .5 / ( dimensions.x * dimensions.y );
+        if( 1.5 * blend > threshold ) {
+          pBlend = 1.5 * blend - threshold;
+        }
+        pBlend = clamp( pBlend, 0., 1. );
+        vec3 origin = vec3(source, 0.);
+        vec3 destination = vec3(target, 0.);
+        vec3 p = mix( origin, destination, pBlend );
+        vec3 d = ( destination - origin );
+        vec3 c = origin + d / 2.;
+        float r = length(d);
+        p.xy = c.xy - .5 * d.xy * cos(pBlend*PI);
+        p.z = .5 * r * sin(pBlend*PI);
+        p.xy -= .5 * dimensions;
+        p *= 1. / dimensions.x;
+        vec2 uvSource = source / dimensions.x;
+        vec2 uvTarget = target / dimensions.x;
+        vColor = mix( texture2D(sourceTex,uvSource).rgb, texture2D(targetTex,uvTarget).rgb, pBlend );
+        float scale = 1.;
+        p.y *= -1.;
+        vec4 mvPosition = modelViewMatrix * vec4( p, 1. );
+        gl_PointSize = size * ( scale / - mvPosition.z );
+        gl_Position = projectionMatrix * mvPosition;
+      }</script><script type=x-shader/x-fragment id=particle-fs>precision highp float;
+      varying vec3 vColor;
+      void main() {
+        gl_FragColor = vec4(vColor, 1.);
+      }</script><link href=/static/css/app.77644f30dec9bd5a5d006548207595fe.css rel=stylesheet></head><body><div id=fb-root></div><script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=1615117768789218&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.a3e6f6c5b3ae208501d1.js></script><script type=text/javascript src=/static/js/app.4ab0c7cff2c3a2049c0d.js></script></body></html>
+    }(document, 'script', 'facebook-jssdk'));</script><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.11f33cb94854dfa8867d.js></script><script type=text/javascript src=/static/js/app.c9b28f079baf0e74368f.js></script></body></html>
