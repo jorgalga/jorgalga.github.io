@@ -1,1 +1,84 @@
-<!DOCTYPE html><html lang=es><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Jorgalga Works site</title><meta property=og:url content=https://jorgalga.github.io/ ><meta property=og:type content=website><meta property=og:title content="Jorgalga Works site"><meta property=og:description content="Hypermedia artist."><meta property=og:image content=https://jorgalga.github.io//static/share.jpg><link href=/static/css/app.959a606d88c3f058c71e3de2b430626f.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.78a2feb79b33c2daf9da.js></script><script type=text/javascript src=/static/js/app.c36baf79dba41c93ea78.js></script></body></html>
+<!DOCTYPE html><html lang=es><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Jorgalga Works site</title><meta property=og:url content=https://jorgalga.github.io/ ><meta property=og:type content=website><meta property=og:title content="Jorgalga Works site"><meta property=og:description content="Hypermedia artist."><meta property=og:image content=https://jorgalga.github.io//static/share.jpg><script type=x-shader/x-vertex id=particle-vs>precision highp float;
+      attribute vec3 position;
+      attribute vec2 source;
+      attribute vec2 target;
+      uniform mat4 modelViewMatrix;
+      uniform mat4 projectionMatrix;
+      uniform float size;
+      uniform float blend;
+      uniform sampler2D sourceTex;
+      uniform sampler2D targetTex;
+      uniform vec2 dimensions;
+      varying vec3 vColor;
+      float parabola( float x, float k ) {
+        return pow( 4. * x * ( 1. - x ), k );
+      }
+      const float PI = 3.14159265359;
+      void main() {
+        float pBlend = 0.;
+        float threshold = ( position.y * dimensions.x + position.x ) * .5 / ( dimensions.x * dimensions.y );
+        if( 1.5 * blend > threshold ) {
+          pBlend = 1.5 * blend - threshold;
+        }
+        pBlend = clamp( pBlend, 0., 1. );
+        vec3 origin = vec3(source, 0.);
+        vec3 destination = vec3(target, 0.);
+        vec3 p = mix( origin, destination, pBlend );
+        vec3 d = ( destination - origin );
+        vec3 c = origin + d / 2.;
+        float r = length(d);
+        p.xy = c.xy - .5 * d.xy * cos(pBlend*PI);
+        p.z = .5 * r * sin(pBlend*PI);
+        p.xy -= .5 * dimensions;
+        p *= 1. / dimensions.x;
+        vec2 uvSource = source / dimensions.x;
+        vec2 uvTarget = target / dimensions.x;
+        vColor = mix( texture2D(sourceTex,uvSource).rgb, texture2D(targetTex,uvTarget).rgb, pBlend );
+        float scale = 1.;
+        p.y *= -1.;
+        vec4 mvPosition = modelViewMatrix * vec4( p, 1. );
+        gl_PointSize = size * ( scale / - mvPosition.z );
+        gl_Position = projectionMatrix * mvPosition;
+      }</script><script type=x-shader/x-fragment id=particle-fs>precision highp float;
+      varying vec3 vColor;
+      void main() {
+        gl_FragColor = vec4(vColor, 1.);
+      }</script><script>/*
+      * Debug parameters.
+      */
+      var WebVRConfig = {
+        /**
+        * webvr-polyfill configuration
+        */
+        // Forces availability of VR mode.
+        // FORCE_ENABLE_VR: true, // Default: false.
+        // Complementary filter coefficient. 0 for accelerometer, 1 for gyro.
+        // K_FILTER: 0.98, // Default: 0.98.
+        //  How far into the future to predict during fast motion.
+        // PREDICTION_TIME_S: 0.040, // Default: 0.040 (in seconds).
+        // Flag to disable touch panner. In case you have your own touch controls
+        // TOUCH_PANNER_DISABLED: true, // Default: false.
+        // Enable yaw panning only, disabling roll and pitch. This can be useful for
+        // panoramas with nothing interesting above or below.
+        // YAW_ONLY: true, // Default: false.
+        // Enable the deprecated version of the API (navigator.getVRDevices).
+        // ENABLE_DEPRECATED_API: true, // Default: false.
+        // Scales the recommended buffer size reported by WebVR, which can improve
+        // performance. Making this very small can lower the effective resolution of
+        // your scene.
+        BUFFER_SCALE: 0.5 // default: 1.0
+        // Allow VRDisplay.submitFrame to change gl bindings, which is more
+        // efficient if the application code will re-bind it's resources on the
+        // next frame anyway.
+        // Dirty bindings include: gl.FRAMEBUFFER_BINDING, gl.CURRENT_PROGRAM,
+        // gl.ARRAY_BUFFER_BINDING, gl.ELEMENT_ARRAY_BUFFER_BINDING,
+        // and gl.TEXTURE_BINDING_2D for texture unit 0
+        // Warning: enabling this might lead to rendering issues.
+        // DIRTY_SUBMIT_FRAME_BINDINGS: true // default: false
+      }</script><link href=/static/css/app.990c97a9790c8941615ed2650115cca1.css rel=stylesheet></head><body><div id=fb-root></div><script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=1615117768789218&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.5cfe54bfe7d5776db549.js></script><script type=text/javascript src=/static/js/app.2eac5ea11f961af2f99b.js></script></body></html>
