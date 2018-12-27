@@ -43,7 +43,15 @@
       varying vec3 vColor;
       void main() {
         gl_FragColor = vec4(vColor, 1.);
-      }</script><script>/*
+      }</script><script>var is_safari = navigator.userAgent.indexOf("Safari") > -1;
+      // listen for the DOMContentLoaded event, then bind our function
+      document.addEventListener('DOMContentLoaded', function() {
+        alert('ready')
+        if(is_safari) {
+          document.getElementsByTagName('BODY')[0].classList.add('is-safari')
+        }
+      })
+     /*
       * Debug parameters.
       */
       var WebVRConfig = {
@@ -75,10 +83,10 @@
         // and gl.TEXTURE_BINDING_2D for texture unit 0
         // Warning: enabling this might lead to rendering issues.
         // DIRTY_SUBMIT_FRAME_BINDINGS: true // default: false
-      }</script><link href=/static/css/app.f06da9990c82c4d8c4384bf1c89f604c.css rel=stylesheet></head><body><div id=fb-root></div><script>(function(d, s, id) {
+      }</script><link href=/static/css/app.cb29ce8df307c8d7af212b922e98d838.css rel=stylesheet></head><body><div id=fb-root></div><script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s); js.id = id;
       js.src = 'https://connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.12&appId=1615117768789218&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.afbb75a8cb6057183619.js></script><script type=text/javascript src=/static/js/app.1c1f48a469c551ef8222.js></script></body></html>
+    }(document, 'script', 'facebook-jssdk'));</script><div id=app></div><script type=text/javascript src=/static/js/manifest.2ae2e69a05c33dfc65f8.js></script><script type=text/javascript src=/static/js/vendor.afbb75a8cb6057183619.js></script><script type=text/javascript src=/static/js/app.52c8f3a7dad5dcff9941.js></script></body></html>
